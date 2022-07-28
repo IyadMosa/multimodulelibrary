@@ -37,7 +37,7 @@ public class TaskServiceClient {
 
     }
 
-    public List<TaskDetails> findAllByUser() {
+    public List<TaskDetails> findAll() {
         return dataWebClient.get(getSuffixUrl() + "/all", List.class);
     }
 
