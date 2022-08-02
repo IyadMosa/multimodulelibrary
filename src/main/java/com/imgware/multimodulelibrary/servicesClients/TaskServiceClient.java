@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import utils.CustomerUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -62,7 +63,7 @@ public class TaskServiceClient {
         }
 
         PaymentDetails details = new PaymentDetails();
-        details.setCustomerId(customer.getId());
+        details.setCustomerName(CustomerUtils.getCustomerFullName(customer.getFirstName(), customer.getLastName()));
         details.setPayMethod("CASH");
         details.setAmount(projectTask.getLastPaid());
         details.setPaidAt(new Date());
