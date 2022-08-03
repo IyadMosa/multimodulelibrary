@@ -20,6 +20,8 @@ public class RabbitMQConfig {
     @Value("${rabbitmq.payment.routingKey:payment.routingKey}")
     private String paymentRoutingKey;
 
+    @Value("${rabbitmq.core.routingKey:core.routingKey}")
+    private String coreRoutingKey;
     @Bean
     Queue paymentQueue() {
         return new Queue(paymentQueueName, false);
@@ -38,6 +40,11 @@ public class RabbitMQConfig {
     @Bean
     Binding paymentBinding(Queue paymentQueue, TopicExchange topicExchange) {
         return BindingBuilder.bind(paymentQueue).to(topicExchange).with(paymentRoutingKey);
+    }
+
+    @Bean
+    Binding coreBinding(Queue paymentQueue, TopicExchange topicExchange) {
+        return BindingBuilder.bind(paymentQueue).to(topicExchange).with(coreRoutingKey);
     }
 
     @Bean

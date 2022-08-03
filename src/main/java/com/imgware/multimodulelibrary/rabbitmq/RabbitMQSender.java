@@ -23,12 +23,17 @@ public class RabbitMQSender {
     @Value("${rabbitmq.payment.routingKey:payment.routingKey}")
     private String paymentRoutingKey;
 
+    @Value("${rabbitmq.core.routingKey:core.routingKey}")
+    private String coreRoutingKey;
+
     public void send(Object msg) {
 //        String exchange ="";
 //        String routingKey = "";
         if (msg instanceof PaymentDetails) {
             rabbitTemplate.convertAndSend(exchange, paymentRoutingKey, msg);
-            logger.info("Sending payment msg = {}", msg);
+            logger.info("Sending payment details msg to payment = {}", msg);
+            rabbitTemplate.convertAndSend(exchange, coreRoutingKey, msg);
+            logger.info("Sending payment details msg to core= {}", msg);
         }
 
     }
