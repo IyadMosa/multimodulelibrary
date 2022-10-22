@@ -24,6 +24,10 @@ public class CarItemsServiceClient {
         HttpEntity<CarItemDetails> request = new HttpEntity<>(item);
         return carItemsWebClient.post(getSuffixUrl(), request, CarItemDetails.class);
     }
+    public List<CarItemDetails> getAllByIds(CarItemDetails item) throws Exception {
+        HttpEntity<CarItemDetails> request = new HttpEntity<>(item);
+        return carItemsWebClient.post(getSuffixUrl() + "get-by-ids", request, List.class);
+    }
 
     public List<CarItemDetails> searchByMakerAndModel(SearchByMakerAndModel dto) {
         HttpEntity<SearchByMakerAndModel> request = new HttpEntity<>(dto);
